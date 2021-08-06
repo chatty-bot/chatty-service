@@ -1,0 +1,1065 @@
+openapi: 3.0.1
+info:
+  title: Data Collection API
+  description: Class informations that are required for communication between the
+    WoZ Frontend and the Backend
+  version: "0.0"
+paths:
+  /dialogue:
+    post:
+      operationId: createDialogue
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dialogueTO:
+                  $ref: '#/components/schemas/DialogueTO'
+        required: true
+      responses:
+        default:
+          description: createDialogue default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Object'
+  /dialogue/add:
+    post:
+      operationId: addDialogueDataToDialogue
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dialogueUpdateTO:
+                  $ref: '#/components/schemas/DialogueUpdateTO'
+        required: true
+      responses:
+        default:
+          description: addDialogueDataToDialogue default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Object'
+  /dialogue/update:
+    post:
+      operationId: updateDialogdataInDialogue
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dialogueUpdateTO:
+                  $ref: '#/components/schemas/DialogueUpdateTO'
+        required: true
+      responses:
+        default:
+          description: updateDialogdataInDialogue default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Object'
+  /dialogue/{dialogueId}:
+    post:
+      operationId: addDialogData
+      parameters:
+      - name: dialogueId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dialogueDataTO:
+                  $ref: '#/components/schemas/DialogueDataTO'
+        required: true
+      responses:
+        default:
+          description: addDialogData default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/void'
+  /dialogue/user:
+    get:
+      operationId: findLatestDialogueRequiresUser
+      parameters: []
+      responses:
+        default:
+          description: findLatestDialogueRequiresUser default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DialogueTO'
+  /dialogue/system:
+    get:
+      operationId: findLatestDialogueRequiresSystem
+      parameters: []
+      responses:
+        default:
+          description: findLatestDialogueRequiresSystem default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DialogueTO'
+  /hello:
+    get:
+      operationId: index
+      parameters: []
+      responses:
+        default:
+          description: index default response
+          content:
+            text/plain:
+              schema:
+                type: string
+  /metrics/{classifierName}:
+    get:
+      operationId: findMetricsByClassifier
+      parameters:
+      - name: classifierName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: findMetricsByClassifier default response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MetricsEntity'
+  /register:
+    post:
+      operationId: register
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entity:
+                  $ref: '#/components/schemas/UserEntity'
+        required: true
+      responses:
+        default:
+          description: register default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserEntity'
+  /answer_selection:
+    get:
+      summary: Get all answers selection modules for a particular user
+      description: Get all answers selection modules for a particular user
+      operationId: getAllAnswerSelectionForUser
+      parameters: []
+      responses:
+        default:
+          description: a list of all answer selection modules for that particular
+            user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AnswerSelectionTO'
+    post:
+      summary: Create a new answer selection module
+      description: Create a new answer selection module
+      operationId: createAnswerSelectionModule
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                answerSelectionModule:
+                  $ref: '#/components/schemas/AnswerSelectionTO'
+        required: true
+      responses:
+        default:
+          description: the newly created answer selection entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnswerSelectionTO'
+  /answer_selection/{answerSelectionName}:
+    get:
+      summary: Get all answers selection modules for a particular user
+      description: Get all answers selection modules for a particular user
+      operationId: getAnswerSelectionByName
+      parameters:
+      - name: answerSelectionName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: a list of all answer selection modules for that particular
+            user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnswerSelectionTO'
+  /trainings/text_classification/{classifierName}:
+    get:
+      operationId: fetchByClassifierName
+      parameters:
+      - name: classifierName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: fetchByClassifierName default response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrainingEntity'
+  /trainings/answer_selection/{answerSelectionName}:
+    get:
+      operationId: fetchByAnswerSelectionName
+      parameters:
+      - name: answerSelectionName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: fetchByAnswerSelectionName default response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TrainingEntity'
+  /user:
+    get:
+      operationId: getUserName
+      parameters: []
+      responses:
+        default:
+          description: getUserName default response
+          content:
+            application/json:
+              schema:
+                type: string
+  /classifier:
+    get:
+      summary: Get all classifiers for the current user
+      description: Get all classifiers for the current user
+      operationId: getAllClassifiersForUser
+      parameters: []
+      responses:
+        default:
+          description: a list of classifiers that correspond to the current user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClassifierTO'
+    post:
+      summary: Create  a new classifier
+      description: Create  a new classifier
+      operationId: createClassifier
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - classifierName
+              type: object
+              properties:
+                classifierName:
+                  minLength: 1
+                  type: string
+                  description: the name of the classifier
+                  nullable: false
+        required: true
+      responses:
+        default:
+          description: the newly created classifier ClassifierEntity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassifierTO'
+  /classifier/{classifierName}:
+    get:
+      summary: Fetch a single classifier that corresponds to a user
+      description: Fetch a single classifier that corresponds to a user
+      operationId: getClassifierForUser
+      parameters:
+      - name: classifierName
+        in: path
+        description: the name of the classifier
+        required: true
+        schema:
+          minLength: 1
+          type: string
+      responses:
+        default:
+          description: the fetched classifier
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassifierDomainObject'
+  /classifier/{classifierName}/save_sample:
+    post:
+      summary: Persist a new data sample that belongs to a particular classifier
+      description: Persist a new data sample that belongs to a particular classifier
+      operationId: createDataSampleForClassifier
+      parameters:
+      - name: classifierName
+        in: path
+        description: the name of the classifier the new datasample will be added
+        required: true
+        schema:
+          minLength: 1
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dataSampleTO:
+                  $ref: '#/components/schemas/ClassifierDataSampleTO'
+        required: true
+      responses:
+        default:
+          description: the newly created data sample transport object ClassifierDataSampleTO
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassifierDataSampleTO'
+  /download/text_classification/{classifierName}:
+    get:
+      operationId: download
+      parameters:
+      - name: classifierName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: download default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamedFile'
+  /intents/persistAll:
+    post:
+      summary: Create a new intent based on a list of strings and the corresponding
+        classifier name
+      description: Create a new intent based on a list of strings and the corresponding
+        classifier name
+      operationId: createIntent
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                intents:
+                  type: array
+                  description: the inputs that will be new intents
+                  nullable: false
+                  items:
+                    type: string
+                classifierName:
+                  type: string
+                  description: the corresponding classifier name
+                  nullable: false
+        required: true
+      responses:
+        default:
+          description: a list of all newly created intents
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IntentTO'
+  /intents:
+    get:
+      summary: Fetch all available intents based on a classifier
+      description: Fetch all available intents based on a classifier
+      operationId: getAllIntentsForClassifier
+      parameters:
+      - name: classifierName
+        in: query
+        description: the classifier name that contains multiple intents (potentially)
+        required: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: a list of strings that are intents for the input classifier
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IntentTO'
+    post:
+      summary: Create a single intent
+      description: Create a single intent
+      operationId: createSingleIntent
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                intentTO:
+                  $ref: '#/components/schemas/IntentTO'
+        required: true
+      responses:
+        default:
+          description: the newly created intent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntentTO'
+  /upload/text_classification/{classifierName}:
+    post:
+      operationId: uploadClassifierData
+      parameters:
+      - name: classifierName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  nullable: false
+        required: true
+      responses:
+        default:
+          description: uploadClassifierData default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/void'
+  /upload/answer_selection/{answerSelectionName}:
+    post:
+      operationId: uploadAnswerSelectionData
+      parameters:
+      - name: answerSelectionName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  nullable: false
+        required: true
+      responses:
+        default:
+          description: uploadAnswerSelectionData default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/void'
+  /gateway/train/{classifierName}:
+    get:
+      summary: Train a text classification model with the given name and a required
+        training type. Optionally the epochs can be specified which determine how
+        many epochs the model will be trained
+      description: Train a text classification model with the given name and a required
+        training type. Optionally the epochs can be specified which determine how
+        many epochs the model will be trained
+      operationId: trainTextClassification
+      parameters:
+      - name: classifierName
+        in: path
+        description: the name of the text classification model
+        required: true
+        schema:
+          type: string
+      - name: training_type
+        in: query
+        description: the type of training that will be done. Can be SVM or CNN
+        required: true
+        schema:
+          type: string
+      - name: epochs
+        in: query
+        description: how many epochs the model will be trained
+        required: true
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      responses:
+        default:
+          description: a list of error if the training has failed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MetricsError'
+  /gateway/predict/{classifierName}:
+    post:
+      summary: Predict a intent for a given text classification model specified by
+        its training type and name.
+      description: Predict a intent for a given text classification model specified
+        by its training type and name.
+      operationId: predictTextClassification
+      parameters:
+      - name: classifierName
+        in: path
+        description: the name of the text classification model
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                textClassificationPredictionRequest:
+                  $ref: '#/components/schemas/TextClassificationPredictionRequest'
+        required: true
+      responses:
+        default:
+          description: the predicted result
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TextClassificationPredictionResult'
+  /gateway/answer_selection/train/{answerSelectionName}:
+    get:
+      summary: Train a particular answer selection module specified by name
+      description: Train a particular answer selection module specified by name
+      operationId: trainAnswerSelectionModule
+      parameters:
+      - name: answerSelectionName
+        in: path
+        description: the name of the answer selection module
+        required: true
+        schema:
+          type: string
+      - name: epochs
+        in: query
+        description: how many epochs the model will be trained
+        required: true
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      responses:
+        default:
+          description: no content if the training was successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Object'
+  /gateway/answer_selection/predict/{answerSelectionName}:
+    post:
+      summary: Predict an answer with the help of an answer selection module specified
+        by its name
+      description: Predict an answer with the help of an answer selection module specified
+        by its name
+      operationId: predictAnswerSelectionModule
+      parameters:
+      - name: answerSelectionName
+        in: path
+        description: the name of the answer selection module
+        required: true
+        schema:
+          type: string
+      - name: classifier_name
+        in: query
+        description: the name of the classifier that will be used to determine which
+          intent is the input (to reduce answer selection computation)
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                inputs:
+                  type: array
+                  description: the input for which an answer will be selected
+                  nullable: false
+                  items:
+                    type: string
+        required: true
+      responses:
+        default:
+          description: the answer prediction for the given input
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    Object:
+      type: object
+    DialogueTO:
+      required:
+      - dialogData
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        dialogData:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/DialogueDataTO'
+        finished:
+          type: boolean
+        requiresActionFrom:
+          $ref: '#/components/schemas/Issuer'
+        isFinished:
+          type: boolean
+    DialogueDataTO:
+      required:
+      - turn
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        turn:
+          type: integer
+          format: int32
+        transcript:
+          type: string
+        systemTranscript:
+          type: string
+        dialogueId:
+          type: integer
+          format: int32
+        stateTO:
+          $ref: '#/components/schemas/StateTO'
+        issuer:
+          $ref: '#/components/schemas/Issuer'
+    StateTO:
+      required:
+      - slots
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        slots:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/SlotTO'
+        dialogDataId:
+          type: integer
+          format: int32
+    SlotTO:
+      required:
+      - label
+      - value
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        stateId:
+          type: integer
+          format: int32
+        label:
+          minLength: 1
+          type: string
+        value:
+          minLength: 1
+          type: string
+    Issuer:
+      type: string
+      enum:
+      - SYSTEM
+      - USER
+    DialogueUpdateTO:
+      type: object
+      properties:
+        dialogId:
+          type: integer
+          format: int32
+        dialogueDataTO:
+          $ref: '#/components/schemas/DialogueDataTO'
+        finished:
+          type: boolean
+        requiresActionFrom:
+          $ref: '#/components/schemas/Issuer'
+        isFinished:
+          type: boolean
+    void:
+      type: object
+    MetricsEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        classifierId:
+          type: integer
+          format: int32
+        intentId:
+          type: integer
+          format: int32
+        intentName:
+          type: string
+        precision:
+          type: number
+          format: float
+        trainingType:
+          $ref: '#/components/schemas/TrainingType'
+    TrainingType:
+      type: string
+      enum:
+      - SVM
+      - CNN
+      - QA_CNN
+      - LSTM
+    UserEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        username:
+          type: string
+        password:
+          type: string
+        enabled:
+          type: boolean
+        accountExpired:
+          type: boolean
+        accountLocked:
+          type: boolean
+        passwordExpired:
+          type: boolean
+        email:
+          type: string
+        classifiers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClassifierEntity'
+        answerSelections:
+          type: array
+          items:
+            $ref: '#/components/schemas/AnswerSelectionEntity'
+    ClassifierEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        classifierName:
+          type: string
+        userId:
+          type: integer
+          format: int32
+    AnswerSelectionEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        answerSelectionName:
+          type: string
+    AnswerSelectionTO:
+      required:
+      - answerSelectionName
+      - classifiers
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        userId:
+          type: integer
+          format: int32
+        answerSelectionName:
+          minLength: 1
+          type: string
+        classifiers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClassifierTO'
+    ClassifierTO:
+      required:
+      - classifierName
+      - intents
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int32
+        id:
+          type: integer
+          format: int32
+        classifierName:
+          minLength: 1
+          type: string
+        intents:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntentTO'
+    IntentTO:
+      required:
+      - intentName
+      - numberOfSamples
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        intentName:
+          minLength: 1
+          type: string
+        classifierId:
+          type: integer
+          format: int32
+        numberOfSamples:
+          type: integer
+          format: int32
+    TrainingEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        classifierId:
+          type: integer
+          format: int32
+        trainingType:
+          $ref: '#/components/schemas/TrainingType'
+        trainingStatus:
+          $ref: '#/components/schemas/TrainingStatus'
+        startedAt:
+          type: string
+          format: date-time
+        answerSelectionId:
+          type: integer
+          format: int32
+    TrainingStatus:
+      type: string
+      enum:
+      - IN_PROGRESS
+      - DONE
+      - FAILED
+    ClassifierDomainObject:
+      required:
+      - classifierName
+      - datasets
+      - intents
+      - metrics
+      - trainings
+      type: object
+      properties:
+        classifierName:
+          minLength: 1
+          type: string
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricsTO'
+        intents:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntentTO'
+        datasets:
+          type: array
+          items:
+            $ref: '#/components/schemas/TextClassificationDatasetEntity'
+        trainings:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrainingEntity'
+    MetricsTO:
+      required:
+      - intentName
+      - precision
+      - trainingType
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        classifierId:
+          type: integer
+          format: int32
+        intentId:
+          type: integer
+          format: int32
+        intentName:
+          minLength: 1
+          type: string
+        trainingType:
+          $ref: '#/components/schemas/TrainingType'
+        precision:
+          type: number
+          format: float
+    TextClassificationDatasetEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        classifierId:
+          type: integer
+          format: int32
+        fileName:
+          type: string
+        numberOfSamples:
+          type: integer
+          format: int32
+    ClassifierDataSampleTO:
+      required:
+      - label
+      - text
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        userId:
+          type: integer
+          format: int32
+        classifierId:
+          type: integer
+          format: int32
+        label:
+          minLength: 1
+          type: string
+        text:
+          minLength: 1
+          type: string
+    StreamedFile:
+      type: object
+      properties:
+        lastModified:
+          type: integer
+          format: int64
+        length:
+          type: integer
+          format: int64
+        name:
+          type: string
+          deprecated: true
+        mediaType:
+          $ref: '#/components/schemas/MediaType'
+        inputStream:
+          $ref: '#/components/schemas/InputStream'
+    MediaType:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        subtype:
+          type: string
+        extension:
+          type: string
+        parameters:
+          type: array
+          items:
+            type: string
+        quality:
+          type: string
+        qualityAsNumber:
+          type: number
+        version:
+          type: string
+        charset:
+          $ref: '#/components/schemas/Charset'
+        textBased:
+          type: boolean
+    Charset:
+      type: object
+      properties:
+        registered:
+          type: boolean
+        name:
+          type: string
+        aliases:
+          type: array
+          items:
+            type: string
+    InputStream:
+      type: object
+    MetricsError:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+    TextClassificationPredictionResult:
+      type: object
+      properties:
+        trainingType:
+          $ref: '#/components/schemas/TrainingType'
+        predictions:
+          type: array
+          items:
+            type: string
+    TextClassificationPredictionRequest:
+      required:
+      - inputs
+      - type
+      type: object
+      properties:
+        inputs:
+          type: array
+          items:
+            type: string
+        type:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrainingType'

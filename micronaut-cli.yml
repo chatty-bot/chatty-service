@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: chatty
+---
+testFramework: junit
+sourceLanguage: java

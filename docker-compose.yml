@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+
+  chatty-db:
+    container_name: chatty-db
+    image: postgres:11
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: qa
+      POSTGRES_USER: qa
+      POSTGRES_DB: qa
+    ports:
+      - 5432:5432
